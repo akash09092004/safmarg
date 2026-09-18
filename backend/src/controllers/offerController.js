@@ -1,0 +1,3 @@
+const Offer=require('../models/offerModel');const {success}=require('../utils/response');
+exports.list=async(_req,res)=>success(res,await Offer.listActive());
+exports.validate=async(req,res)=>{const o=await Offer.findByCode(req.body.code);if(!o){const e=new Error('Invalid or expired offer');e.statusCode=404;throw e}const amount=Number(req.body.amount);if(amount<Number(o.min_booking_amount)){const e=new Error(`Minimum booking amount is ${o.min_booking_amount}`);e.statusCode=422;throw e}let discount=o.discount_type==='percentage'?amount*Number(o.discount_value)/100:Number(o.discount_value);if(o.max_discount)discount=Math.min(discount,Number(o.max_discount));success(res,{offer:o,discount,final_amount:Math.max(0,amount-discount)})};

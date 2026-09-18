@@ -1,0 +1,1 @@
+const r=require('express').Router();const c=require('../controllers/passengerController');const {protect}=require('../middleware/authMiddleware');const {asyncHandler:a}=require('../middleware/errorMiddleware');r.use(protect);r.get('/booking/:bookingId',a(c.byBooking));r.put('/:id',a(c.update));module.exports=r;

@@ -1,0 +1,1 @@
+const r=require('express').Router();const c=require('../controllers/seatController');const {asyncHandler:a}=require('../middleware/errorMiddleware');r.get('/flight/:flightId',a(c.byFlight));module.exports=r;

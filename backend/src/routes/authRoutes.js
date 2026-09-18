@@ -1,0 +1,3 @@
+const r=require('express').Router();const {body}=require('express-validator');const c=require('../controllers/authController');const {protect}=require('../middleware/authMiddleware');const {validate}=require('../middleware/validationMiddleware');const {asyncHandler:a}=require('../middleware/errorMiddleware');
+r.post('/register',[body('name').trim().isLength({min:2,max:100}),body('email').isEmail().normalizeEmail(),body('password').isLength({min:8}),body('phone').optional().matches(/^\+?[1-9]\d{7,14}$/),validate],a(c.register));
+r.post('/login',[body('email').isEmail().normalizeEmail(),body('password').notEmpty(),validate],a(c.login));r.get('/me',protect,a(c.me));module.exports=r;

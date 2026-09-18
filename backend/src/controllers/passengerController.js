@@ -1,0 +1,3 @@
+const Passenger=require('../models/passengerModel');const Booking=require('../models/bookingModel');const {success}=require('../utils/response');
+exports.byBooking=async(req,res)=>{const b=await Booking.findById(req.params.bookingId);if(!b||(req.user.role!=='admin'&&Number(b.user_id)!==Number(req.user.id))){const e=new Error('Booking not found');e.statusCode=404;throw e}success(res,await Passenger.findByBooking(b.id))};
+exports.update=async(req,res)=>{const p=await Passenger.findById(req.params.id);const b=p&&await Booking.findById(p.booking_id);if(!b||Number(b.user_id)!==Number(req.user.id)||b.status!=='pending'){const e=new Error('Passenger cannot be updated');e.statusCode=403;throw e}success(res,await Passenger.update(p.id,req.body),'Passenger updated')};
