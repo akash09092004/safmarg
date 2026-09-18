@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -74,10 +73,7 @@ class _AvailableFlightsScreenState extends State<AvailableFlightsScreen> {
         );
       }
 
-      final apiBaseUrl = kIsWeb
-          ? 'http://localhost:5000/api/v1'
-          : ApiConstants.baseUrl;
-      final uri = Uri.parse('$apiBaseUrl/flights').replace(
+      final uri = Uri.parse(ApiConstants.flights).replace(
         queryParameters: {
           'origin': originCode,
           'destination': destinationCode,
@@ -117,7 +113,7 @@ class _AvailableFlightsScreenState extends State<AvailableFlightsScreen> {
       List<dynamic> list = data is List ? data : [];
 
       if (list.isEmpty) {
-        final nearbyUri = Uri.parse('$apiBaseUrl/flights').replace(
+        final nearbyUri = Uri.parse(ApiConstants.flights).replace(
           queryParameters: {
             'origin': originCode,
             'destination': destinationCode,

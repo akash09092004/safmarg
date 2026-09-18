@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class ApiConstants {
   ApiConstants._();
 
@@ -7,16 +5,10 @@ class ApiConstants {
   // BASE URL
   // ==========================================
 
-  static final String baseUrl = kIsWeb
-      ? 'http://localhost:5000/api/v1'
-      : const String.fromEnvironment(
-          'API_BASE_URL',
-          defaultValue: '',
-        ).isNotEmpty
-      ? const String.fromEnvironment('API_BASE_URL')
-      : defaultTargetPlatform == TargetPlatform.android
-      ? 'http://127.0.0.1:5000/api/v1'
-      : 'http://localhost:5000/api/v1';
+  static const String baseUrl = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: 'https://safmarg.onrender.com/api/v1',
+  );
 
   // ==========================================
   // AUTH
@@ -174,7 +166,7 @@ class ApiConstants {
   // TIMEOUT
   // ==========================================
 
-  static const Duration connectionTimeout = Duration(seconds: 20);
+  static const Duration connectionTimeout = Duration(seconds: 60);
 
   static const Duration receiveTimeout = Duration(seconds: 20);
 }
